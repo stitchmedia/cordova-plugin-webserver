@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2012-2014, Pierre-Olivier Latour
+ Copyright (c) 2012-2015, Pierre-Olivier Latour
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -57,13 +57,13 @@ NSString* GCDWebServerUnescapeURLString(NSString* string);
 NSDictionary* GCDWebServerParseURLEncodedForm(NSString* form);
 
 /**
- *  On OS X, returns the IPv4 address as a dotted string of the primary connected
- *  service or nil if not available.
+ *  On OS X, returns the IPv4 or IPv6 address as a string of the primary
+ *  connected service or nil if not available.
  *  
- *  On iOS, returns the IPv4 address as a dotted string of the WiFi interface
- *  if connected or nil otherwise.
+ *  On iOS, returns the IPv4 or IPv6 address as a string of the WiFi
+ *  interface if connected or nil otherwise.
  */
-NSString* GCDWebServerGetPrimaryIPv4Address();
+NSString* GCDWebServerGetPrimaryIPAddress(BOOL useIPv6);
 
 /**
  *  Converts a date into a string using RFC822 formatting.

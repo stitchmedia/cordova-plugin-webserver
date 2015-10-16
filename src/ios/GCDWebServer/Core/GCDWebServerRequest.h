@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2012-2014, Pierre-Olivier Latour
+ Copyright (c) 2012-2015, Pierre-Olivier Latour
  All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,15 @@
  */
 
 #import <Foundation/Foundation.h>
+
+/**
+ *  Attribute key to retrieve an NSArray containing NSStrings from a GCDWebServerRequest
+ *  with the contents of any regular expression captures done on the request path.
+ *
+ *  @warning This attribute will only be set on the request if adding a handler using 
+ *  -addHandlerForMethod:pathRegex:requestClass:processBlock:.
+ */
+extern NSString* const GCDWebServerRequestAttribute_RegexCaptures;
 
 /**
  *  This protocol is used by the GCDWebServerConnection to communicate with
@@ -149,6 +158,30 @@
 @property(nonatomic, readonly) BOOL acceptsGzipContentEncoding;
 
 /**
+ *  Returns the address of the local peer (i.e. server) for the request
+ *  as a raw "struct sockaddr".
+ */
+@property(nonatomic, readonly) NSData* localAddressData;
+
+/**
+ *  Returns the address of the local peer (i.e. server) for the request
+ *  as a string.
+ */
+@property(nonatomic, readonly) NSString* localAddressString;
+
+/**
+ *  Returns the address of the remote peer (i.e. client) for the request
+ *  as a raw "struct sockaddr".
+ */
+@property(nonatomic, readonly) NSData* remoteAddressData;
+
+/**
+ *  Returns the address of the remote peer (i.e. client) for the request
+ *  as a string.
+ */
+@property(nonatomic, readonly) NSString* remoteAddressString;
+
+/**
  *  This method is the designated initializer for the class.
  */
 - (instancetype)initWithMethod:(NSString*)method url:(NSURL*)url headers:(NSDictionary*)headers path:(NSString*)path query:(NSDictionary*)query;
@@ -162,5 +195,12 @@
  *  Convenience method that checks if the byteRange property is defined.
  */
 - (BOOL)hasByteRange;
+
+/**
+ *  Retrieves an attribute associated with this request using the given key.
+ *
+ *  @return The attribute value for the key.
+ */
+- (id)attributeForKey:(NSString*)key;
 
 @end
